@@ -1,10 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const notesController = require("./controller");
+const { registerUser } = require("./registerUser");
+const { loginUser } = require("./loginUser");
 
-router.get("/notes", notesController.getAllNotes);
-router.post("/notes", notesController.createNote);
-router.delete("/notes/:id", notesController.deleteNote);
-router.patch("/notes/:id", notesController.updateNote);
+const {
+  createNote,
+  getAllNotes,
+  deleteNote,
+  updateNote,
+} = require("./controllerNotes");
+
+const verifyJWT = require("./middleware/auth");
+
+//router.get("/notes",getAllNotes);
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.post("/createNote", verifyJWT, createNote);
+
+//router.delete("/notes/:id",deleteNote);
+//router.patch("/notes/:id", updateNote);
 
 module.exports = router;

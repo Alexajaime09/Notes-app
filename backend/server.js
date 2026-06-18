@@ -1,18 +1,25 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
-const path = require("path");
-const app = express();
-const cors = require("cors");
 const { connectDB } = require("./db");
+const noteRoutes = require("./router");
+const errorHandler = require("./middleware/errorHandler");
+const dotenv = require("dotenv").config();
+const app = express();
+const PORT = process.env.PORT || 9090;
+
+app.use(express.json());
 
 async function startServer() {
   try {
     await connectDB();
-    const server = app.listen(3000, () => {
-      console.log("server running port 3000");
+
+    app.use("/notes", noteRoutes);
+    app.use(errorHandler);
+    app.listen(PORT, () => {
+      console.log(`"server running port ${PORT}"`);
     });
   } catch (err) {
-    console.log("failed to connect", err.message);
+    console.log("Failed to connect to DB", err.message);
+    process.exit(1);
   }
 }
 startServer();

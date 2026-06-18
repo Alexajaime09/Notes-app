@@ -8,19 +8,22 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-let dbConnection;
+let dbConnection = null;
 async function connectDB() {
   try {
     await client.connect();
-    dbConnection = client.db(process.env.MONGO_DB_NAME);
+    let dbName = process.env.MONGO_DB_NAME || "notes-app";
+    dbConnection = client.db(dbName);
     console.log(`mongo db connect to ${process.env.MONGO_DB_NAME}`);
-    return dbConnection;
   } catch (err) {
     throw err;
   }
 }
 
 function getDB() {
+  if (!dbConnection) {
+    throw new Error("the data base hasn't been initialized'");
+  }
   return dbConnection;
 }
 module.exports = { connectDB, getDB };
