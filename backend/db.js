@@ -15,6 +15,10 @@ async function connectDB() {
     let dbName = process.env.MONGO_DB_NAME || "notes-app";
     dbConnection = client.db(dbName);
     console.log(`mongo db connect to ${process.env.MONGO_DB_NAME}`);
+
+    await dbConnection
+      .collection("notes")
+      .createIndex({ title: "text", content: "text" });
   } catch (err) {
     throw err;
   }
