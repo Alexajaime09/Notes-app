@@ -19,6 +19,7 @@ async function connectDB() {
     await dbConnection
       .collection("notes")
       .createIndex({ title: "text", content: "text" });
+    await dbConnection.collection("notes").createIndex({ tags: 1 });
   } catch (err) {
     throw err;
   }
