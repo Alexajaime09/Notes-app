@@ -19,7 +19,7 @@ const registerUser = async (req, res, next) => {
     if (existingUser) {
       return res.status(400).json({
         error:
-          "It is not possible complet the registration with this information",
+          "It is not possible complete the registration with this information",
       });
     }
 
