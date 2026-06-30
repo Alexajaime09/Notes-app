@@ -15,7 +15,7 @@
   --border-subtle: #e5e5e5; /* card borders and inputs */
 
   /* Interaction with states */
-  --color-accent: #000;
+  --color-accent: #ede176;
   --color-error: #dc2626;
   --bg-error: #fef2f2;
 
@@ -124,6 +124,7 @@ input:focus {
   font-size: var(--fs-small);
   margin-bottom: 1.5rem;
   border: 1px solid var(--border-subtle);
+  display: hidden;
 }
 
 button {

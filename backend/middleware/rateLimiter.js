@@ -8,7 +8,7 @@ const apiLimiter = rateLimit({
     message:
       "Too many requests from this IP address, please try again in 15 minutes",
   },
-  standarHeaders: true,
+  standardHeaders: true,
   legacyHeaders: false,
 });
 
@@ -20,7 +20,7 @@ const authLimiter = rateLimit({
     message:
       "Too many login attempts. Locked for 15 minutes for security reasons",
   },
-  standarHeaders: true,
+  standardHeaders: true,
   legacyHeaders: false,
 });
 

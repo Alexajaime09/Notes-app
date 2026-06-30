@@ -1,34 +1,25 @@
+import { apiService } from "./service.js";
+
 /**
  * @typedef {Object} RegisterResponse
- * @property {boolean} success
- * @property {string} [message]
+ *@property {boolean} success
+ *@property {string} [message]
  */
-
-const API_URL = "http://localhost:9090";
 
 /**
-
- * @param {Object} userData 
+ * @param {Object} userData
  * @param {string} userData.email
- * @param {string} userData.password 
+ * @param {string} userData.password
  * @returns {Promise<RegisterResponse>}
- */
+ *  */
 
 async function registerUserApi(userData) {
   try {
-    const response = await fetch(`${API_URL}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "aplication/json",
-      },
-      body: JSON.stringify(userData),
-    });
-    const data = await response.json();
-
-    if (!response) {
-      throw new Error(data.message || "Server error while registering user");
-    }
-    return { success: true, message: data.message };
+    const data = await apiService.post("/notes/register", userData);
+    return {
+      success: true,
+      message: "User registered successfully",
+    };
   } catch (err) {
     console.error("API Error [resgisterUserApi]", err);
     throw err;
@@ -40,10 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitButton = document.getElementById("btn-submit");
   const errorContainer = document.getElementById("error-message");
 
-  if (!registerForm) return;
+  console.log(registerForm);
+  //if (!registerForm) return;
 
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    console.log("form eviado");
     const formData = new FormData(registerForm);
     const email = formData.get("email")?.trim();
     const password = formData.get("password")?.trim();
@@ -57,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (password !== confirmPassword) {
-      showError("the passwords are not the same", showError);
+      showError("the passwords are not the same", errorContainer);
       return;
     }
 
@@ -75,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "./login.html?registered=true";
       }
     } catch (err) {
-      showError(error.message, errorContainer);
+      showError(err.message, errorContainer);
     } finally {
       setLoadingState(false, submitButton);
     }

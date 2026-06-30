@@ -1,4 +1,10 @@
-const BASE_URL = "http://localhost:9090";
+let BASE_URL;
+if (
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+) {
+  BASE_URL = "http://localhost:9090";
+}
 
 /**
  * Helper para obtener el token JWT almacenado de forma segura.
@@ -24,7 +30,7 @@ async function handleResponse(response) {
     const errorData = await response.json();
     errorMessage = errorData.error || errorMessage;
   } catch (err) {
-    errorMessage = `Error de red o servidor  ${response.statusText}`;
+    errorMessage = `Network or server error  ${response.statusText}`;
   }
 
   if (response.status === 401) {
@@ -45,18 +51,19 @@ export const apiService = {
   async get(endpoint) {
     const token = getAuthToken();
     const headers = {
-      "Content-Type": "aplication/json",
+      "Content-Type": "application/json",
     };
 
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
-
+    console.log("Hostname:", window.location.hostname);
+    console.log("BASE_URL:", BASE_URL);
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: "GET",
       headers,
     });
-    return handleResponse;
+    return handleResponse(response);
   },
 
   /**
@@ -112,12 +119,12 @@ export const apiService = {
   async delete(endpoint) {
     const token = getAuthToken();
 
-    const header = {
-      "Type-Content": "application/json",
+    const headers = {
+      "Content-Type": "application/json",
     };
 
     if (token) {
-      header["Authorization"] = `Bearer ${token}`;
+      headers["Authorization"] = `Bearer ${token}`;
     }
 
     const response = await fetch(`${BASE_URL}${endpoint}`, {
