@@ -1,5 +1,5 @@
 const { getDB } = require("./db");
-const { ObjectId, ReturnDocument } = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 const createNote = async (req, res, next) => {
   try {
@@ -19,7 +19,7 @@ const createNote = async (req, res, next) => {
       tags: tags || [],
       isPinned: isPinned,
       createdAt: new Date(),
-      updateCreated: new Date(),
+      updatedAt: new Date(),
       userId: userId,
     };
     const db = getDB();
@@ -40,7 +40,7 @@ const getNotes = async (req, res, next) => {
     const userId = new ObjectId(req.user.userId);
 
     const { search, tags, page, limit } = req.query;
-    console.log("soy user", req.user);
+    console.log(req.query);
     const pageNum = Math.max(parseInt(page, 10) || 1);
     const limitNum = Math.max(parseInt(limit, 10) || 3);
     let skipNum = pageNum * limitNum - limitNum;
@@ -116,9 +116,9 @@ const updateNote = async (req, res, next) => {
           : tags;
     }
 
-    updateNote.updateAt = new Date();
+    updateFields.updateAt = new Date();
 
-    const result = db
+    const result = await db
       .collection("notes")
       .findOneAndUpdate(
         { _id: noteId, userId: userId },

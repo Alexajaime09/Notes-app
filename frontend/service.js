@@ -25,10 +25,11 @@ async function handleResponse(response) {
   }
 
   let errorMessage = "An unexpected error occurred on the server";
+  let mistake;
 
   try {
     const errorData = await response.json();
-    errorMessage = errorData.error || errorMessage;
+    errorMessage = errorData.message || errorMessage;
   } catch (err) {
     errorMessage = `Network or server error  ${response.statusText}`;
   }
@@ -84,7 +85,6 @@ export const apiService = {
       headers,
       body: JSON.stringify(body),
     });
-
     return handleResponse(response);
   },
 

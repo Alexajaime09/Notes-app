@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>My notes</h1>
+      <button id="logoutBtn">Logout</button>
+    </header>
+    <main>
+      <section id="controls" aria-label="Filters and searching">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Searching notes..."
+          aria-label="search notes"
+        />
+      </section>
+      <section id="notesContainer" aria-live="polite"></section>
+      <button id="addNoteBtn" aria-label="Create new Note">+</button>
+    </main>
+    <div id=" noteModal" class="hidden" aria-hidden="true">
+      <form id="noteForm" action="">
+        <input type="text" id="title" required placeholder="Title" />
+        <textarea
+          id="content"
+          required
+          placeholder="write your note"
+        ></textarea>
+        <input type="text" id="tags" placeholder="tags (comma-separated )" />
+        <button type="submit">Save Note</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    console.log("form eviado");
+
     const formData = new FormData(registerForm);
     const email = formData.get("email")?.trim();
-    const password = formData.get("password")?.trim();
+    const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
 
     cleanErrors(errorContainer);
