@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(response);
 
         setTimeout(() => {
-          window.location.href = "./notes?login=true";
+          window.location.href = "./interface-frontend/notes.html";
         }, 4000);
       }
     } catch (err) {

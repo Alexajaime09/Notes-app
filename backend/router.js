@@ -19,7 +19,7 @@ router.use(apiLimiter);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.use(verifyJWT);
-router.post("/createNote", createNote);
+router.post("/", createNote);
 router.get("/", getNotes);
 router.patch("/:id", updateNote);
 router.delete("/:id", deleteNote);

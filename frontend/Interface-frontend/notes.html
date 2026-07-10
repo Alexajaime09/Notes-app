@@ -22,18 +22,40 @@
         />
       </section>
       <section id="notesContainer" aria-live="polite"></section>
+
+      <section id="notesContainer">
+        <div id="pagination">
+          <button id="prevButton">Previous</button>
+          <span id="pageInfo"></span>
+          <button id="nextButton">next Page</button>
+        </div>
+      </section>
+
       <button id="addNoteBtn" aria-label="Create new Note">+</button>
     </main>
-    <div id=" noteModal" class="hidden" aria-hidden="true">
-      <form id="noteForm" action="">
-        <input type="text" id="title" required placeholder="Title" />
+    <div id="noteModal" class="hidden" aria-hidden="true">
+      <div class="modal-content"></div>
+      <form clas="noteForm" id="noteForm" action="">
+        <input
+          name="title"
+          type="text"
+          id="title"
+          required
+          placeholder="Title"
+        />
         <textarea
           id="content"
+          name="content"
           required
           placeholder="write your note"
         ></textarea>
-        <input type="text" id="tags" placeholder="tags (comma-separated )" />
-        <button type="submit">Save Note</button>
+        <input
+          name="tags"
+          type="text"
+          id="tags"
+          placeholder="tags (comma-separated )"
+        />
+        <button class="save-btn" id="saveNote" type="submit">Save Note</button>
       </form>
     </div>
   </body>

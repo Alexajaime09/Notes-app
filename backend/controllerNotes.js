@@ -40,8 +40,7 @@ const getNotes = async (req, res, next) => {
     const userId = new ObjectId(req.user.userId);
 
     const { search, tags, page, limit } = req.query;
-    console.log(req.query);
-    const pageNum = Math.max(parseInt(page, 10) || 1);
+    const pageNum = Math.max(parseInt(page, 10) || 1, 1);
     const limitNum = Math.max(parseInt(limit, 10) || 3);
     let skipNum = pageNum * limitNum - limitNum;
 
@@ -99,7 +98,6 @@ const updateNote = async (req, res, next) => {
     const noteId = new ObjectId(req.params.id);
     const userId = new ObjectId(req.user.userId);
 
-    console.log(userId, noteId);
     const { title, content, tags, isPinned } = req.body;
 
     let updateFields = {};
@@ -116,14 +114,14 @@ const updateNote = async (req, res, next) => {
           : tags;
     }
 
-    updateFields.updateAt = new Date();
+    updateFields.updatedAt = new Date();
 
     const result = await db
       .collection("notes")
       .findOneAndUpdate(
         { _id: noteId, userId: userId },
         { $set: updateFields },
-        { ReturnDocument: "after" },
+        { returnDocument: "after" },
       );
 
     if (!result) {

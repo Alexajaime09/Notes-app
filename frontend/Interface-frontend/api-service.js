@@ -4,13 +4,13 @@ const getAuthToken = () => localStorage.getItem("token");
 
 const headers = () => ({
   "Content-Type": "application/json",
-  Authorizathion: `Bearer ${getAuthToken()} `,
+  Authorization: `Bearer ${getAuthToken()} `,
 });
 
 export const apiServiceFront = {
   async getNotes(params = {}) {
     const queryString = new URLSearchParams(params).toString();
-    const response = await fetch(`${BASE_URL}/notes/${queryString}`, {
+    const response = await fetch(`${BASE_URL}/notes?${queryString}`, {
       method: "GET",
       headers: headers(),
     });
@@ -26,11 +26,11 @@ export const apiServiceFront = {
     return handleResponse(response);
   },
 
-  async updateNote(id, updateData) {
+  async updateNote(id, updatedData) {
     const response = await fetch(`${BASE_URL}/notes/${id}`, {
       method: "PATCH",
       headers: headers(),
-      body: JSON.stringify(updateData),
+      body: JSON.stringify(updatedData),
     });
     return handleResponse(response);
   },
@@ -47,7 +47,7 @@ export const apiServiceFront = {
 async function handleResponse(response) {
   const data = await response.json();
 
-  if (!response) {
+  if (!response.ok) {
     throw new Error(data.message || "something went wrong");
   }
 
