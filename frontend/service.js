@@ -1,10 +1,8 @@
-let BASE_URL;
-if (
+const BASE_URL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1"
-) {
-  BASE_URL = "http://localhost:9090";
-}
+    ? "http://localhost:9090"
+    : "https://notes-app-rbt5.onrender.com";
 
 /**
  * Helper para obtener el token JWT almacenado de forma segura.
@@ -37,8 +35,8 @@ async function handleResponse(response) {
   if (response.status === 401) {
     localStorage.removeItem("token");
 
-    if (!window.location.pathname.endsWith("login.html")) {
-      window.location.href = "login.html";
+    if (!window.location.pathname.endsWith("index.html")) {
+      window.location.href = "index.html";
     }
   }
   throw new Error(errorMessage);

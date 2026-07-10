@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await registerUserApi({ email, password });
 
       if (response.success) {
-        window.location.href = "./login.html?registered=true";
+        window.location.href = "./index.html?registered=true";
       }
     } catch (err) {
       showError(err.message, errorContainer);

@@ -205,7 +205,7 @@ export const uiController = {
 
   logoutfunc() {
     localStorage.removeItem("token");
-    window.location.href = "../login.html";
+    window.location.href = "../index.html";
   },
   init() {
     noteForm.addEventListener("submit", async (event) => {

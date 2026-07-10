@@ -8,16 +8,25 @@ const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 9090;
 
-const allowOrigins = ["http://127.0.0.1:5500", "http://localhost:5500"];
+const allowOrigins = [
+  "http://127.0.0.1:5500",
+  "http://localhost:5500",
+  process.env.CLIENT_URL,
+];
 
 app.use(express.json());
 app.use(
   cors({
     origin(origin, callback) {
+      console.log("Origin recibido:", origin);
+      console.log("Permitidos:", allowOrigins);
+
       if (!origin) return callback(null, true);
+
       if (allowOrigins.includes(origin)) {
         return callback(null, true);
       }
+
       callback(new Error("Origin not allowed"));
     },
   }),
