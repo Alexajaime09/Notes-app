@@ -1,25 +1,32 @@
 const express = require("express");
-const path = require("path");
+
 const { connectDB } = require("./db");
 const noteRoutes = require("./router");
 const errorHandler = require("./middleware/errorHandler");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 9090;
 
+const allowOrigins = ["http://127.0.0.1:5500", "http://localhost:5500"];
+
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../frontend")));
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error("Origin not allowed"));
+    },
+  }),
+);
 
-app.use((req, res, next) => {
-  res.set("Access-Control-Allow-Origin", "*");
-
-  if (req.method === "OPTIONS") {
-    res.set("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE");
-    res.set(`Access-Control-Allow-Headers`, "Content-Type, Authorization");
-    return res.sendStatus(204);
-  }
-  next();
+app.get("/", (req, res) => {
+  res.json({
+    status: "Server runing",
+  });
 });
 
 async function startServer() {
