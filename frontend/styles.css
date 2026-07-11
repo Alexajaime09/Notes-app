@@ -149,3 +149,10 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--fs-meta);
+}

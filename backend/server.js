@@ -8,11 +8,11 @@ const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 9090;
 
-const allowOrigins = [
-  "http://127.0.0.1:5500",
-  "http://localhost:5500",
-  process.env.CLIENT_URL,
-];
+const allowOrigins = ["http://127.0.0.1:5500", "http://localhost:5500"];
+
+if (process.env.CLIENT_URL) {
+  allowOrigins.push(process.env.CLIENT_URL);
+}
 
 app.use(express.json());
 app.use(
