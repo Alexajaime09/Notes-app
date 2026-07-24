@@ -18,7 +18,7 @@ let searchTimeout;
 
 const state = {
   page: 1,
-  limit: 3,
+  limit: 4,
   totalPages: 1,
   search: "",
   tags: [],
@@ -100,9 +100,16 @@ export const uiController = {
         : ""
     }
     <div class="note-actions">
-    <button class="edit-btn"> Edit</button>
-    <button class="delete-btn"> Delete</button>
-    </div>
+    <button class="btn edit-btn"> 
+   <img src="./src/edit-icon.png" class="icon-button" alt="edit icon"/>
+   <span> Edit </span>
+    </button>
+   <button class="btn delete-btn"> 
+   <img src="./src/delete-icon.png" class="icon-button"
+    alt="delete icon"/>
+    <span> Delete </span>
+    </button>
+    </div> 
     
     </article>
     `;

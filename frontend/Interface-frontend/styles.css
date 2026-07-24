@@ -1,16 +1,20 @@
 :root {
-  --primary-color: #4a90e2;
-  --primary-hover: #357abd;
+  --button-color: #262625;
+  --button-hover: #3a3a3a;
 
-  --bg-color: #f9f9fb;
-  --card-bg: #ffffff;
+  --title-font: "Kumbh Sans", sans-serif;
 
-  --text-color: #333;
-  --border-color: #ddd;
+  --card-bg: #e6e5e5;
+  --card-stroke: #f2f2f2;
+
+  --tags-color: #659b6b;
+
+  --title-color: #000;
+  --text-color: #4d4d4d;
 
   --radius: 12px;
 
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow: 0 0 15px 5px rgba(255, 255, 255, 0.5);
 
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -25,11 +29,27 @@
 
 body {
   margin: 0;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  position: relative;
+  font-family: "Outfit", sans-serif;
+  overflow-x: hidden;
+  font-weight: 300;
   line-height: 1.6;
+}
 
-  background: var(--bg-color);
-  color: var(--text-color);
+.background {
+  position: fixed;
+  height: 100vh;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+  background-image:
+    linear-gradient(180deg, #8a8a8a 0%, #3e3e3eab 45%, #353535 100%),
+    url("./src/bg-img.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: hard-light;
+  scale: 1.1;
 }
 
 /* ===========================
@@ -38,9 +58,10 @@ body {
 
 main {
   width: min(100%, 900px);
-
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
   margin-inline: auto;
-
   padding: 2rem 1rem 4rem;
 }
 
@@ -97,35 +118,40 @@ header h1 {
 #notesContainer {
   display: grid;
 
-  gap: 1rem;
+  gap: 5rem;
 }
 
 .note-card {
   background: var(--card-bg);
-
+  border: 3px solid var(--card-stroke);
   padding: 1.25rem;
+  height: 280px;
+  width: 380px;
 
   border-radius: var(--radius);
 
   box-shadow: var(--shadow);
 
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .note-card:hover {
   transform: translateY(-3px);
-
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .note-card h3 {
   margin-top: 0;
+  font-family: var(--title-font);
+  font-size: 26px;
+  color: var(--title-color);
+  font-weight: 450;
+  text-align: center;
 }
 
 .note-card p {
   margin-bottom: 1rem;
+  color: var(--text-color);
+  text-align: center;
 }
 
 /* ===========================
@@ -180,6 +206,54 @@ button {
 
 #addNoteBtn:hover {
   background: var(--primary-hover);
+}
+
+.note-actions {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-button {
+  height: 12px;
+  width: auto;
+}
+
+.btn {
+  background: var(--button-color);
+  border-radius: 7px;
+  border: none;
+  padding: 5px 16px;
+  font-size: 12px;
+  color: #f2f2f2;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn:hover {
+  background: var(--button-hover);
+}
+/* ===========================
+   Tags
+=========================== */
+
+.tags {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.tag {
+  padding: 5px 10px;
+  background: var(--tags-color);
+  color: #f2f2f2;
+  font-size: 12px;
+  border-radius: 7px;
 }
 
 /* ===========================

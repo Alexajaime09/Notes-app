@@ -41,7 +41,8 @@ const getNotes = async (req, res, next) => {
 
     const { search, tags, page, limit } = req.query;
     const pageNum = Math.max(parseInt(page, 10) || 1, 1);
-    const limitNum = Math.max(parseInt(limit, 10) || 3);
+    const limitNum = Math.max(parseInt(limit, 10) || 4, 1);
+    console.log(limitNum);
     let skipNum = pageNum * limitNum - limitNum;
 
     let query = { userId: userId };
@@ -75,7 +76,7 @@ const getNotes = async (req, res, next) => {
         .toArray(),
       db.collection("notes").countDocuments(query),
     ]);
-    console.log(notes);
+    console.log("respuesta de limiteNum", limitNum);
     res.status(200).json({
       status: "success",
       results: notes.length,
